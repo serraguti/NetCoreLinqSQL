@@ -18,13 +18,19 @@ namespace NetCoreLinqSQL.Data
         public EnfermosContext()
         {
             string cadenaconexion = "Data Source=LOCALHOST;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=SA;Password=MCSD2021";
+            this.cn = new SqlConnection(cadenaconexion);
+            this.com = new SqlCommand();
+            this.com.Connection = this.cn;
+            this.RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            string cadenaconexion = "Data Source=LOCALHOST;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=SA;Password=MCSD2021";
             string sql = "select * from enfermo";
             this.adenfermos = new SqlDataAdapter(sql, cadenaconexion);
             this.TablaEnfermos = new DataTable();
             this.adenfermos.Fill(this.TablaEnfermos);
-            this.cn = new SqlConnection(cadenaconexion);
-            this.com = new SqlCommand();
-            this.com.Connection = this.cn;
         }
 
         public List<Enfermo> GetEnfermos()
@@ -55,6 +61,7 @@ namespace NetCoreLinqSQL.Data
             int eliminados = this.com.ExecuteNonQuery();
             this.cn.Close();
             this.com.Parameters.Clear();
+            this.RefreshData();
             return eliminados;
         }
     }
