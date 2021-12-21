@@ -47,5 +47,25 @@ namespace NetCoreLinqSQL.Controllers
                 this.context.GetEmpleadosOficioSalario(oficio, salario);
             return View(empleados);
         }
+
+
+        public IActionResult IncrementarSalarios()
+        {
+            List<string> oficios = this.context.GetOficios();
+            ViewBag.Oficios = oficios;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult IncrementarSalarios(string oficio, int incremento)
+        {
+            int results =
+                this.context.IncrementarSalarioEmpleadosOficio(oficio, incremento);
+            List<Empleado> empleados = this.context.GetEmpleadosOficio(oficio);
+            ViewData["MENSAJE"] = "Empleados modificados: " + results;
+            List<string> oficios = this.context.GetOficios();
+            ViewBag.Oficios = oficios;
+            return View(empleados);
+        }
     }
 }

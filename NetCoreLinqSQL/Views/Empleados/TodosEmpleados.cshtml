@@ -2,10 +2,21 @@
 
 <h1>Todos empleados LINQ to SQL</h1>
 
-<a asp-controller="Empleados"
-   asp-action="BuscarEmpleadosOficioSalario">
-    Buscar empleados
-</a>
+<ul class="list-group">
+    <li class="list-group-item">
+        <a asp-controller="Empleados"
+           asp-action="BuscarEmpleadosOficioSalario">
+            Buscar empleados
+        </a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="Empleados" asp-action="IncrementarSalarios">
+            Incrementar salarios oficio
+        </a>
+    </li>
+</ul>
+
+
 
 <table class="table table-active">
     <thead>
